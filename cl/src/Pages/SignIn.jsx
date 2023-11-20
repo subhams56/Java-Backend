@@ -35,14 +35,14 @@ const SignIn = () => {
       if (response.ok) {
         
         const result = await response.json();
-        console.log('API Response:', result);
+        console.log('Response', result);
         
       } else {
         
-        console.error('API Request failed:', response.status, response.statusText);
+        console.log('SOmething Went Wrong');
       }
     } catch (error) {
-      console.error('Error during fetch:', error.message);
+      console.error('Error', error.message);
     }
   };
 
