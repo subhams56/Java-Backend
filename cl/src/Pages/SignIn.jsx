@@ -19,11 +19,11 @@ const SignIn = () => {
     };
 
     
-    const apiEndpoint = 'your-api-endpoint';
+    const url;
 
     try {
       
-      const response = await fetch(apiEndpoint, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
