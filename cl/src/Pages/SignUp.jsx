@@ -18,10 +18,10 @@ const SignUp = () => {
       userRole,
     };
 
-    const apiEndpoint = 'your-api-endpoint';
+    const url ;
 
     try {
-      const response = await fetch(apiEndpoint, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,13 +31,13 @@ const SignUp = () => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log('API Response:', result);
+        console.log('Response', result);
         setUserData(result); 
       } else {
-        console.error('API Request failed:', response.status, response.statusText);
+        console.log('Something Went Wrong');
       }
     } catch (error) {
-      console.error('Error during fetch:', error.message);
+      console.error('Error', error.message);
     }
   };
 
