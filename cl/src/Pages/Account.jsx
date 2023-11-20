@@ -8,15 +8,9 @@ const Account = () => {
   
   useEffect(() => {
     
-    const staticUserData = {
-      userId: 1,
-      username: 'exampleUser',
-      email: 'example@email.com',
-      userRole: 'USER',
-    };
-
-    setUserData(staticUserData);
-  }, []);
+    
+    
+  , []);
 
  
 
