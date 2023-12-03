@@ -3,9 +3,11 @@ package com.example.passwordencryptiondemo.passwordencryptiondemo.controllers;
 import com.example.passwordencryptiondemo.passwordencryptiondemo.entity.Users;
 import com.example.passwordencryptiondemo.passwordencryptiondemo.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UsersController {
@@ -13,12 +15,49 @@ public class UsersController {
     @Autowired
     UsersService usersService;
 
-    @PostMapping("users")
-    public String addUser(@RequestBody Users user)
+    @PostMapping("/addUsers")
+    public ResponseEntity<String> addUser(@RequestBody Users user)
     {
-
-        return usersService.addUser(user);
+        String message = usersService.addUser(user);
+        ResponseEntity<String> re = new ResponseEntity<String>(message, HttpStatus.CREATED);
+        return re;
     }
+
+    @PutMapping("/users/{userId}")
+
+
+    public ResponseEntity<String>  Updateuser(@RequestBody Users user, @PathVariable("userId") int userId)
+    {
+        String message = usersService.updateUser(user,userId);
+        ResponseEntity<String> re = new ResponseEntity<String>(message, HttpStatus.OK);
+        return re;
+    }
+
+    @GetMapping("/users")
+            public List<Users>fetchUsers()
+    {
+        return usersService.fetchUsers();
+    }
+
+//    @GetMapping("users/{userId}")
+//            public Users getUserById(@PathVariable("userId") int userId)
+//    {
+//        return usersService.fetchUserById(userId);
+//    }
+
+    @GetMapping("/users/{username}")
+    public Users getUserById(@PathVariable("username") String username)
+    {
+        return usersService.fetchUserByName(username);
+    }
+
+    @DeleteMapping("/users/{username}")
+    public String deleteUser(@PathVariable("username") String username)
+    {
+        return usersService.deleteuser(username);
+    }
+
+
 
     @PostMapping("/authenticateUsers")
     public String authenticateUser(@RequestBody Users user)
@@ -26,4 +65,8 @@ public class UsersController {
         return usersService.authenticateUser(user);
     }
 }
+
+
+
+
 
