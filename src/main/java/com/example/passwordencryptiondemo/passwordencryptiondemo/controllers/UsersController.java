@@ -23,12 +23,12 @@ public class UsersController {
         return re;
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/users/{username}")
 
 
-    public ResponseEntity<String>  Updateuser(@RequestBody Users user, @PathVariable("userId") int userId)
+    public ResponseEntity<String>  Updateuser(@RequestBody Users user, @PathVariable("username") String username)
     {
-        String message = usersService.updateUser(user,userId);
+        String message = usersService.updateUser(user,username);
         ResponseEntity<String> re = new ResponseEntity<String>(message, HttpStatus.OK);
         return re;
     }

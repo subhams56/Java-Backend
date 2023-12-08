@@ -47,9 +47,12 @@ public class UsersService {
             throw new UserNotFoundException("No User is found for this username");
     }
 
-    public String updateUser(Users user, int userId) {
+    public String updateUser(Users user, String username) {
         if(usersRepository.existsById(user.getUsername()))
         {
+            BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+            String encryptedPwd = bcrypt.encode(user.getPwd());
+            user.setPwd(encryptedPwd);
             Users userDB = usersRepository.save(user);
             if(userDB != null)
             {
@@ -59,7 +62,7 @@ public class UsersService {
                 throw new UserNotFoundException("Error Updating User");
             }
         }
-        throw new UserIdNotFoundException("No Records found for user with id: "+userId);
+        throw new UserIdNotFoundException("No Records found for user with id: "+username);
     }
 
     public List<Users> fetchUsers() {
