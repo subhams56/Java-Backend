@@ -19,11 +19,11 @@ const SignIn = () => {
     };
 
     
-    const url;
+    const apiEndpoint = 'your-api-endpoint';
 
     try {
       
-      const response = await fetch(url, {
+      const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,14 +35,14 @@ const SignIn = () => {
       if (response.ok) {
         
         const result = await response.json();
-        console.log('Response', result);
+        console.log('API Response:', result);
         
       } else {
         
-        console.log('SOmething Went Wrong');
+        console.error('API Request failed:', response.status, response.statusText);
       }
     } catch (error) {
-      console.error('Error', error.message);
+      console.error('Error during fetch:', error.message);
     }
   };
 
