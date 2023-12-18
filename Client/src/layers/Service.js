@@ -8,7 +8,7 @@ const Service = {
     const headers = {
       'Content-Type': 'application/json',
       
-      // Add any other headers as needed
+      
     };
 
     return axios.post(`${BASE_URL}/addUsers`, userData, { headers, withCredentials: true });
@@ -17,7 +17,7 @@ const Service = {
     const headers = {
       'Content-Type': 'application/json',
       
-      // Add any other headers as needed
+     
     };
 
     return axios.post(`${BASE_URL}/authenticateUsers`, userData, { headers, withCredentials: true });
