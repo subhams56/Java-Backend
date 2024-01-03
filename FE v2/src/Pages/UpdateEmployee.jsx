@@ -7,7 +7,8 @@ const UpdateEmployee = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const[userEmail,setUserEmail]=useState(null);
+  const [userEmail, setUserEmail] = useState(null);
+  const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,9 +17,6 @@ const UpdateEmployee = () => {
         setUser(response.data);
         console.log('User data:', response.data);
         setUserEmail(response.data.email);
-        
-        
-        
       } catch (error) {
         console.error('Error fetching user data:', error.message);
         alert('Error fetching user data');
@@ -28,8 +26,42 @@ const UpdateEmployee = () => {
     fetchData();
   }, [userId]);
 
+  const validateForm = () => {
+    const errors = {};
+
+    // Validate username
+    if (!user.username) {
+      errors.username = 'Username is required';
+    }
+
+    // Validate role
+    if (!user.role) {
+      errors.role = 'Role is required';
+    }
+
+    // Validate mobileNumber
+    if (!user.mobileNumber) {
+      errors.mobileNumber = 'Mobile Number is required';
+    } else if (isNaN(user.mobileNumber) || user.mobileNumber.length !== 10) {
+      errors.mobileNumber = 'Mobile Number should be 10 digits';
+    }
+
+    // Validate gender
+    if (!user.gender) {
+      errors.gender = 'Gender is required';
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validateForm()) {
+      alert('Please fill in all the required fields correctly.');
+      return;
+    }
 
     try {
       // Prepare the user data from the form fields
@@ -38,9 +70,7 @@ const UpdateEmployee = () => {
         role: event.target.role.value,
         mobileNumber: event.target.mobileNumber.value,
         gender: event.target.gender.value,
-        email:userEmail
-       
-        // Add more fields based on your form structure
+        email: userEmail,
       };
 
       // Use the updateUserByUsername service to send a request to update the user data
@@ -79,26 +109,26 @@ const UpdateEmployee = () => {
                 onChange={handleInputChange}
                 className="w-full p-2 border rounded"
               />
+              {formErrors.username && (
+                <span className="text-red-500">{formErrors.username}</span>
+              )}
             </div>
-            {/* <div className="mb-4">
-              <label className="block text-sm font-semibold mb-2">User ID:</label>
-              <input
-                type="text"
-                name="userId"
-                value={user.userId}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded"
-              />
-            </div> */}
             <div className="mb-4">
               <label className="block text-sm font-semibold mb-2">Role:</label>
-              <input
-                type="text"
+              <select
                 name="role"
                 value={user.role}
                 onChange={handleInputChange}
                 className="w-full p-2 border rounded"
-              />
+              >
+                <option value="">Select Role</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="MANAGER">MANAGER</option>
+                <option value="GUEST">GUEST</option>
+              </select>
+              {formErrors.role && (
+                <span className="text-red-500">{formErrors.role}</span>
+              )}
             </div>
             <div className="mb-4">
               <label className="block text-sm font-semibold mb-2">Mobile Number:</label>
@@ -109,28 +139,26 @@ const UpdateEmployee = () => {
                 onChange={handleInputChange}
                 className="w-full p-2 border rounded"
               />
+              {formErrors.mobileNumber && (
+                <span className="text-red-500">{formErrors.mobileNumber}</span>
+              )}
             </div>
             <div className="mb-4">
               <label className="block text-sm font-semibold mb-2">Gender:</label>
-              <input
-                type="text"
+              <select
                 name="gender"
                 value={user.gender}
                 onChange={handleInputChange}
                 className="w-full p-2 border rounded"
-              />
+              >
+                <option value="">Select Gender</option>
+                <option value="MALE">MALE</option>
+                <option value="FEMALE">FEMALE</option>
+              </select>
+              {formErrors.gender && (
+                <span className="text-red-500">{formErrors.gender}</span>
+              )}
             </div>
-            {/* <div className="mb-4">
-              <label className="block text-sm font-semibold mb-2">Password:</label>
-              <input
-                type="password"
-                name="password"
-                value={user.password || ''}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded"
-              />
-            </div> */}
-           
             <Link
               to="/employees"
               className="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -143,7 +171,6 @@ const UpdateEmployee = () => {
             >
               Update User
             </button>
-           
           </form>
         )}
       </div>

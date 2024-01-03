@@ -65,6 +65,8 @@ const UpdateProduct = () => {
                 value={product.productName}
                 onChange={handleInputChange}
                 className="w-full p-2 border rounded"
+                required
+                placeholder="Enter product name"
               />
             </div>
             <div className="mb-4">
@@ -75,6 +77,9 @@ const UpdateProduct = () => {
                 value={product.price}
                 onChange={handleInputChange}
                 className="w-full p-2 border rounded"
+                required
+                placeholder="Enter price (must be more than 0)"
+                min="1"
               />
             </div>
             <div className="mb-4">
@@ -85,6 +90,9 @@ const UpdateProduct = () => {
                 value={product.quantity}
                 onChange={handleInputChange}
                 className="w-full p-2 border rounded"
+                required
+                placeholder="Enter quantity (must be more than 0)"
+                min="1"
               />
             </div>
             <div className="mb-4">

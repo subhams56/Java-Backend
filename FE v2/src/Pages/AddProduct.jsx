@@ -46,6 +46,7 @@ const AddProduct = () => {
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
             required
+            placeholder="Enter product name"
           />
         </div>
 
@@ -58,6 +59,8 @@ const AddProduct = () => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
+            placeholder="Enter price (must be more than 0)"
+            min="1"
           />
         </div>
 
@@ -70,6 +73,8 @@ const AddProduct = () => {
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             required
+            placeholder="Enter quantity (must be more than 0)"
+            min="1"
           />
         </div>
 

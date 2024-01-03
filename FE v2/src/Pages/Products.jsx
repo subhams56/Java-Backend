@@ -39,7 +39,7 @@ const Products = () => {
   return (
     <div>
       <Navbar2 />
-      <h1 className="text-center">Products</h1>
+      <h1 className="text-center font-bold">Products</h1>
       <table className="border-collapse border border-gray-800 mx-auto mt-10">
         <thead>
           <tr>

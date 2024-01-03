@@ -8,18 +8,19 @@ const AddGodown = () => {
   const [location, setLocation] = useState('');
   const [capacityInQuintals, setCapacityInQuintals] = useState('');
   const [startDate, setStartDate] = useState('');
-  const [userId, setUserId] = useState('');
   const [username, setUsername] = useState('');
   const [userSuggestions, setUserSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [uId, setUId] = useState(null);
 
+  const [capacityError, setCapacityError] = useState('');
+
   useEffect(() => {
     const fetchUserSuggestions = async () => {
       try {
         const response = await apiService.getUserByUsername(username);
-        setUserSuggestions(response.data); 
+        setUserSuggestions(response.data);
       } catch (error) {
         console.error('API Request failed:', error.message);
       }
@@ -41,7 +42,7 @@ const AddGodown = () => {
     try {
       const response = await apiService.getUserByUsername(selectedUsername);
       const selectedUserData = response.data[0];
-      
+
       console.log('Selected User Data:', selectedUserData.userId);
       setSelectedUser(selectedUserData);
       setUId(selectedUserData.userId);
@@ -56,25 +57,30 @@ const AddGodown = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Capacity validation
+    if (capacityInQuintals <= 0 || capacityInQuintals >= 500) {
+      setCapacityError('Capacity must be more than 0 and less than 500.');
+      return;
+    } else {
+      setCapacityError('');
+    }
+
     const godownData = {
       location,
       capacityInQuintals: Number(capacityInQuintals),
       startDate,
       users: {
         userId: Number(uId),
-        
       },
     };
 
     try {
       const response = await apiService.addGodown(godownData);
 
-      
       console.log('API Response:', response.data);
       alert('Godown added successfully!');
       navigate('/godowns');
     } catch (error) {
-      
       console.error('API Request failed:', error.message);
       alert('Error: Something went wrong while adding the godown.');
     }
@@ -83,70 +89,95 @@ const AddGodown = () => {
   return (
     <div>
       <Navbar2 />
-      <h1 className="text-center">Add New Godown</h1>
+      <h1 className="text-center font-bold">Add New Godown</h1>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-5">
         <div className="mb-4">
-          <label htmlFor="location" className="block text-sm font-bold mb-2">Location:</label>
-          <input
-            type="text"
-            id="location"
-            className="w-full border rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-          />
+          <label htmlFor="location" className="block text-md font-bold mb-8">
+            Location:
+            <input
+              type="text"
+              id="location"
+              className="w-full border rounded py-2 px-3 mt-2 focus:outline-none focus:border-blue-500"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="Enter location"
+              required
+            />
+          </label>
         </div>
 
         <div className="mb-4">
-          <label htmlFor="capacityInQuintals" className="block text-sm font-bold mb-2">Capacity in Quintals:</label>
-          <input
-            type="number"
-            id="capacityInQuintals"
-            className="w-full border rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-            value={capacityInQuintals}
-            onChange={(e) => setCapacityInQuintals(e.target.value)}
-            required
-          />
+          <label htmlFor="capacityInQuintals" className="block text-sm font-bold mb-8">
+            Capacity in Quintals:
+            <input
+              type="number"
+              id="capacityInQuintals"
+              className={`w-full border rounded py-2 px-3 mt-2 focus:outline-none focus:border-blue-500 ${
+                capacityError ? 'border-red-500' : ''
+              }`}
+              value={capacityInQuintals}
+              onChange={(e) => setCapacityInQuintals(e.target.value)}
+              placeholder="Enter capacity"
+              required
+            />
+          </label>
+          {capacityError && <p className="text-red-500 text-xs italic">{capacityError}</p>}
         </div>
 
         <div className="mb-4">
-          <label htmlFor="startDate" className="block text-sm font-bold mb-2">Start Date:</label>
-          <input
-            type="date"
-            id="startDate"
-            className="w-full border rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            required
-          />
+          <label htmlFor="startDate" className="block text-sm font-bold mb-8">
+            Start Date:
+            <input
+              type="date"
+              id="startDate"
+              className="w-full border rounded mt-2 py-2 px-3 focus:outline-none focus:border-blue-500"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              placeholder="Select start date"
+              required
+            />
+          </label>
         </div>
 
         <div className="mb-4">
-          <label htmlFor="username" className="block text-sm font-bold mb-2">Username:</label>
-          <input
-            type="text"
-            id="username"
-            className="w-full border rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-            value={username}
-            onChange={handleUsernameChange}
-            required
-          />
-          {showSuggestions && (
-            <ul className="suggestions-list">
-              {userSuggestions.map((user) => (
-                <li key={user.userId} onClick={() => handleUsernameSelection(user.username)}>
-                  {user.username}
-                </li>
-              ))}
-            </ul>
-          )}
+          <label htmlFor="username" className="block text-sm font-bold mb-2">
+            Godown Manager
+            <input
+              type="text"
+              id="username"
+              className="w-full border rounded  mt-2 py-2 px-3 focus:outline-none focus:border-blue-500"
+              value={username}
+              onChange={handleUsernameChange}
+              placeholder="Enter Name of Godown Manager"
+              required
+            />
+            {showSuggestions && (
+              <ul className="suggestions-list">
+                {userSuggestions.map((user) => (
+                  <li
+                    key={user.userId}
+                    onClick={() => handleUsernameSelection(user.username)}
+                  >
+                    {user.username}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </label>
         </div>
 
         <div>
-          <button type="submit" className="bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
+          <button
+            type="submit"
+            className="bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+          >
             Add Godown
           </button>
-          <Link to="/adminAccount" type="submit" className="bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ml-4">
+          <Link
+            to="/adminAccount"
+            type="submit"
+            className="bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ml-4"
+          >
             Cancel
           </Link>
         </div>
