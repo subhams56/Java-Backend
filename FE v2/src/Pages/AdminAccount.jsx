@@ -40,8 +40,8 @@ const AdminAccount = () => {
           <Link to="/outwards" className="bg-blue-500 text-white text-center px-4 py-2 rounded-md hover:bg-blue-600">
             Outwards
           </Link>
-          <Link to="/deliveries" className="bg-blue-500 text-white text-center px-4 py-2 rounded-md hover:bg-blue-600">
-           Returns
+          <Link to="/products" className="bg-blue-500 text-white text-center px-4 py-2 rounded-md hover:bg-blue-600">
+           Products
           </Link>
 
           

@@ -75,7 +75,7 @@ const Godowns = () => {
       </table>
       <div className="flex justify-center mt-4">
         <Link to="/adminAccount" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-          Account
+          Go Back
         </Link>
         <Link to="/addGodown" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-4">
           Add New Godown

@@ -19,6 +19,9 @@ import AddGodown from './Pages/AddGodown'
 import UpdateGodown from './Pages/UpdateGodown'
 import AddInward from './Pages/AddInward'
 import UpdateEmployee from './Pages/updateEmployee'
+import Products from './Pages/Products'
+import AddProduct from './Pages/AddProduct'
+import UpdateProduct from './Pages/UpdateProduct'
 
 
 function App() {
@@ -44,6 +47,9 @@ function App() {
         <Route path="/addInward" element={<AddInward/>}/>
         <Route path="/outwards" element={<Outwards/>}/>
         <Route path="/deliveries" element={<Deliveries/>}/>
+        <Route path="/products" element={<Products/>}/>
+        <Route path="/addProduct" element={<AddProduct/>}/>
+        <Route path="/updateProduct/:id" element={<UpdateProduct/>}/>
         
         </Routes>
       </div>

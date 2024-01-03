@@ -175,6 +175,46 @@ const Service = {
   
     return axios.delete(`${BASE_URL}/outwards/deleteOutwards/${id}`, { headers, withCredentials: true });
   },
+  getProducts: () => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    return axios.get(`${BASE_URL}/products/getAllProducts`, { headers, withCredentials: true });
+  },
+  
+  getProductById: (id) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    return axios.get(`${BASE_URL}/products/getById/${id}`, { headers, withCredentials: true });
+  },
+  
+  addProduct: (productData) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    return axios.post(`${BASE_URL}/products/addProducts`, productData, { headers, withCredentials: true });
+  },
+  
+ 
+  
+  deleteProductById: (id) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    return axios.delete(`${BASE_URL}/products/deleteById/${id}`, { headers, withCredentials: true });
+  },
+  updateProductById: (id, productData) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    return axios.put(`${BASE_URL}/products/putByProductsId/${id}`, productData, { headers, withCredentials: true });
+  },
   
   
 };

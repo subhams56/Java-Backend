@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import apiService from '../layers/Service';
 import { Navbar2 } from '../Components/Navbar2';
 
@@ -146,6 +146,9 @@ const AddGodown = () => {
           <button type="submit" className="bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
             Add Godown
           </button>
+          <Link to="/adminAccount" type="submit" className="bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ml-4">
+            Cancel
+          </Link>
         </div>
       </form>
     </div>
