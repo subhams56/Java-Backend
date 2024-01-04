@@ -12,6 +12,7 @@ const Products = () => {
       try {
         const response = await apiService.getProducts();
         setProducts(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching product data:', error.message);
       }
@@ -24,6 +25,7 @@ const Products = () => {
     try {
       await apiService.deleteProductById(productId);
       const response = await apiService.getProducts();
+      console.log(response.data);
       alert('Product Deleted Successfully');
       setProducts(response.data);
     } catch (error) {
@@ -46,6 +48,7 @@ const Products = () => {
             <th className="border border-gray-800 p-2">ID</th>
             <th className="border border-gray-800 p-2">Product Name</th>
             <th className="border border-gray-800 p-2">Price</th>
+            <th className="border border-gray-800 p-2">Quantity</th>
             <th className="border border-gray-800 p-2">Stock</th>
             <th className="border border-gray-800 p-2">Actions</th>
           </tr>
@@ -56,6 +59,7 @@ const Products = () => {
               <td className="border border-gray-800 p-2">{product.productId}</td>
               <td className="border border-gray-800 p-2">{product.productName}</td>
               <td className="border border-gray-800 p-2">{product.price}</td>
+              <td className="border border-gray-800 p-2">{product.quantity}</td>
               <td className="border border-gray-800 p-2">{product.stock ? 'Yes' : 'No'}</td>
               <td className="border border-gray-800 p-2">
                 <button className="bg-red-400 rounded-full px-3 py-1" onClick={() => handleDeleteProduct(product.productId)}>

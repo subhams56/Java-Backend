@@ -34,7 +34,7 @@ const Godowns = () => {
   };
 
   const handleUpdateGodown = (id) => {
-    // Redirect to the update page with the godownId as a parameter
+   
     navigate(`/updateGodown/${id}`);
   };
 
@@ -62,9 +62,9 @@ const Godowns = () => {
               <td className="border border-gray-800 p-2">{godown.startDate.join('/')}</td>
               <td className="border border-gray-800 p-2">{godown.users && godown.users.username}</td>
               <td className="border border-gray-800 p-2">
-                <button className="bg-red-400 rounded-full px-3 py-1" onClick={() => handleDeleteGodown(godown.godownId)}>
+                {/* <button className="bg-red-400 rounded-full px-3 py-1" onClick={() => handleDeleteGodown(godown.godownId)}>
                   Delete
-                </button>
+                </button> */}
                 <button className="bg-blue-500 rounded-full px-3 py-1 ml-2" onClick={() => handleUpdateGodown(godown.godownId)}>
                   Update
                 </button>

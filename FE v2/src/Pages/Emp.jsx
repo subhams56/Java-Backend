@@ -66,7 +66,7 @@ const Emp = () => {
               <td className="border border-gray-800 p-2">{user.email}</td>
               <td className="border border-gray-800 p-2">{user.gender}</td>
               <td className="border border-gray-800 p-2">
-                <button className='bg-red-400 rounded-full w-[85px]' onClick={() => handleDeleteUser(user.username)}>Delete</button>
+                {/* <button className='bg-red-400 rounded-full w-[85px]' onClick={() => handleDeleteUser(user.username)}>Delete</button> */}
                 <button className='bg-blue-500 rounded-full w-[85px] ml-2' onClick={() => handleUpdateUser(user.userId)}>Update</button>
               </td>
             </tr>
