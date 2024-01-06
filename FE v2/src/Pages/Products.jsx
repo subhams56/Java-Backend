@@ -6,6 +6,7 @@ import { Navbar2 } from '../Components/Navbar2';
 const Products = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const userRole = localStorage.getItem('role'); // Get role from localStorage
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +35,6 @@ const Products = () => {
   };
 
   const handleUpdateProduct = (id) => {
-    
     navigate(`/updateProduct/${id}`);
   };
 
@@ -49,8 +49,10 @@ const Products = () => {
             <th className="border border-gray-800 p-2">Product Name</th>
             <th className="border border-gray-800 p-2">Price</th>
             <th className="border border-gray-800 p-2">Quantity</th>
-            <th className="border border-gray-800 p-2">Stock</th>
-            <th className="border border-gray-800 p-2">Actions</th>
+            
+            {userRole === 'ADMIN' && (
+              <th className="border border-gray-800 p-2">Actions</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -60,26 +62,42 @@ const Products = () => {
               <td className="border border-gray-800 p-2">{product.productName}</td>
               <td className="border border-gray-800 p-2">{product.price}</td>
               <td className="border border-gray-800 p-2">{product.quantity}</td>
-              <td className="border border-gray-800 p-2">{product.stock ? 'Yes' : 'No'}</td>
-              <td className="border border-gray-800 p-2">
-                <button className="bg-red-400 rounded-full px-3 py-1" onClick={() => handleDeleteProduct(product.productId)}>
-                  Delete
-                </button>
-                <button className="bg-blue-500 rounded-full px-3 py-1 ml-2" onClick={() => handleUpdateProduct(product.productId)}>
-                  Update
-                </button>
-              </td>
+              
+              {userRole === 'ADMIN' && (
+                <td className="border border-gray-800 p-2">
+                  <button
+                    className="bg-red-400 rounded-full px-3 py-1"
+                    onClick={() => handleDeleteProduct(product.productId)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="bg-blue-500 rounded-full px-3 py-1 ml-2"
+                    onClick={() => handleUpdateProduct(product.productId)}
+                  >
+                    Update
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
       <div className="flex justify-center mt-4">
-        <Link to="/adminAccount" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+        <Link
+          to="/Account"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+        >
           Go Back
         </Link>
-        <Link to="/addProduct" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-4">
-          Add New Product
-        </Link>
+       
+          <Link
+            to="/addProduct"
+            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-4"
+          >
+            Add New Product
+          </Link>
+        
       </div>
     </div>
   );

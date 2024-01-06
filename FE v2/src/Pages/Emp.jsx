@@ -5,7 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Emp = () => {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const userRole = localStorage.getItem('role'); // Get role from localStorage
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +35,6 @@ const Emp = () => {
   };
 
   const handleUpdateUser = (userId) => {
-    
     navigate(`/updateEmployee/${userId}`);
   };
 
@@ -45,41 +45,55 @@ const Emp = () => {
       <table className="border-collapse border border-gray-800 mx-auto mt-10">
         <thead>
           <tr>
-          <th className="border border-gray-800 p-2">Employee ID</th>
+            <th className="border border-gray-800 p-2">Employee ID</th>
             <th className="border border-gray-800 p-2">Employee Name</th>
-            
             <th className="border border-gray-800 p-2">Role</th>
             <th className="border border-gray-800 p-2">Mobile Number</th>
             <th className="border border-gray-800 p-2">Email</th>
             <th className="border border-gray-800 p-2">Gender</th>
-            <th className="border border-gray-800 p-2">Actions</th>
+            {userRole === 'ADMIN' && (
+              <th className="border border-gray-800 p-2">Actions</th>
+            )}
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user.userId}>
-            <td className="border border-gray-800 p-2">{user.userId}</td>
+              <td className="border border-gray-800 p-2">{user.userId}</td>
               <td className="border border-gray-800 p-2">{user.username}</td>
-              
               <td className="border border-gray-800 p-2">{user.role}</td>
               <td className="border border-gray-800 p-2">{user.mobileNumber}</td>
               <td className="border border-gray-800 p-2">{user.email}</td>
               <td className="border border-gray-800 p-2">{user.gender}</td>
-              <td className="border border-gray-800 p-2">
-                {/* <button className='bg-red-400 rounded-full w-[85px]' onClick={() => handleDeleteUser(user.username)}>Delete</button> */}
-                <button className='bg-blue-500 rounded-full w-[85px] ml-2' onClick={() => handleUpdateUser(user.userId)}>Update</button>
-              </td>
+              {userRole === 'ADMIN' && (
+                <td className="border border-gray-800 p-2">
+                  <button
+                    className="bg-blue-500 rounded-full w-[85px] ml-2"
+                    onClick={() => handleUpdateUser(user.userId)}
+                  >
+                    Update
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
-      <div className='flex justify-center mt-4'>
-        <Link to="/adminAccount" className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600'>
+      <div className="flex justify-center mt-4">
+        <Link
+          to="/Account"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+        >
           Go Back
         </Link>
-        <Link to="/addEmployee" className='bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-4'>
-          Add New Employee
-        </Link>
+        {userRole === 'ADMIN' && (
+          <Link
+            to="/addEmployee"
+            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-4"
+          >
+            Add New Employee
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -56,7 +56,7 @@ const Outwards = () => {
         </tbody>
       </table>
       <div className="flex justify-center mt-4">
-        <Link to="/adminAccount" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+        <Link to="/Account" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
           Back
         </Link>
         <Link to="/addOutward" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-4">

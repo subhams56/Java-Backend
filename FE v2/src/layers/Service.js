@@ -215,6 +215,47 @@ const Service = {
 
     return axios.put(`${BASE_URL}/products/putByProductsId/${id}`, productData, { headers, withCredentials: true });
   },
+  getReturns: () => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    return axios.get(`${BASE_URL}/returns/getAllReturns`, { headers, withCredentials: true });
+  },
+  
+  getReturnById: (id) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    return axios.get(`${BASE_URL}/returns/getById/${id}`, { headers, withCredentials: true });
+  },
+  
+  addReturn: (productData) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    return axios.post(`${BASE_URL}/returns/addReturns`, productData, { headers, withCredentials: true });
+  },
+  
+ 
+  
+  deleteReturnById: (id) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    return axios.delete(`${BASE_URL}/returns/deleteById/${id}`, { headers, withCredentials: true });
+  },
+  updateReturnById: (id, productData) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    return axios.put(`${BASE_URL}/returns/putByReturnsId/${id}`, productData, { headers, withCredentials: true });
+  },
+
   
   
 };

@@ -81,8 +81,13 @@ const AddGodown = () => {
       alert('Godown added successfully!');
       navigate('/godowns');
     } catch (error) {
-      console.error('API Request failed:', error.message);
-      alert('Error: Something went wrong while adding the godown.');
+      if (error.response && error.response.status === 400) {
+        console.log( error.response.data);
+        alert(error.response.data);
+      } else {
+        console.log('API Request failed:', error.message);
+      }
+      
     }
   };
 
@@ -174,7 +179,7 @@ const AddGodown = () => {
             Add Godown
           </button>
           <Link
-            to="/adminAccount"
+            to="/Account"
             type="submit"
             className="bg-blue-400 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ml-4"
           >

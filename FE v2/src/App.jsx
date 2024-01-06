@@ -22,6 +22,8 @@ import UpdateEmployee from './Pages/updateEmployee'
 import Products from './Pages/Products'
 import AddProduct from './Pages/AddProduct'
 import UpdateProduct from './Pages/UpdateProduct'
+import Returns from './Pages/Returns'
+import AddReturns from './Pages/AddRetuns'
 
 
 function App() {
@@ -34,7 +36,7 @@ function App() {
         <Route path="/" element={<HomePage/>}/>
         <Route path="/signin" element={<SignIn/>}/>
         <Route path="/signup" element={<SignUp/>}/>
-        <Route path="/adminAccount" element={<AdminAccount/>}/>
+        <Route path="/Account" element={<AdminAccount/>}/>
         <Route path="/userAccount" element={<UserAccount/>}/>
         <Route path="/employees" element={<Emp/>}/>
         <Route path="/addEmployee" element={<AddEmp/>}/>
@@ -50,6 +52,8 @@ function App() {
         <Route path="/products" element={<Products/>}/>
         <Route path="/addProduct" element={<AddProduct/>}/>
         <Route path="/updateProduct/:id" element={<UpdateProduct/>}/>
+        <Route path="/returns" element={<Returns/>}/>
+        <Route path="/addReturn" element={<AddReturns/>}/>
         
         </Routes>
       </div>

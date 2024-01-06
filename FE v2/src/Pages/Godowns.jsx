@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Godowns = () => {
   const [godowns, setGodowns] = useState([]);
   const navigate = useNavigate();
+  const userRole = localStorage.getItem('role'); // Get role from localStorage
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,12 +30,11 @@ const Godowns = () => {
       setGodowns(response.data);
     } catch (error) {
       console.error('Error deleting godown:', error.message);
-      alert(`This Godown is not Empty ! Check Inwards`);
+      alert(`This Godown is not Empty! Check Inwards`);
     }
   };
 
   const handleUpdateGodown = (id) => {
-   
     navigate(`/updateGodown/${id}`);
   };
 
@@ -50,7 +50,9 @@ const Godowns = () => {
             <th className="border border-gray-800 p-2">Capacity (Quintals)</th>
             <th className="border border-gray-800 p-2">Start Date</th>
             <th className="border border-gray-800 p-2">Godown Manager</th>
-            <th className="border border-gray-800 p-2">Actions</th>
+            {userRole === 'ADMIN' && (
+              <th className="border border-gray-800 p-2">Actions</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -61,25 +63,35 @@ const Godowns = () => {
               <td className="border border-gray-800 p-2">{godown.capacityInQuintals}</td>
               <td className="border border-gray-800 p-2">{godown.startDate.join('/')}</td>
               <td className="border border-gray-800 p-2">{godown.users && godown.users.username}</td>
-              <td className="border border-gray-800 p-2">
-                {/* <button className="bg-red-400 rounded-full px-3 py-1" onClick={() => handleDeleteGodown(godown.godownId)}>
-                  Delete
-                </button> */}
-                <button className="bg-blue-500 rounded-full px-3 py-1 ml-2" onClick={() => handleUpdateGodown(godown.godownId)}>
-                  Update
-                </button>
-              </td>
+              {userRole === 'ADMIN' && (
+                <td className="border border-gray-800 p-2">
+                  <button
+                    className="bg-blue-500 rounded-full px-3 py-1 ml-2"
+                    onClick={() => handleUpdateGodown(godown.godownId)}
+                  >
+                    Update
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
       <div className="flex justify-center mt-4">
-        <Link to="/adminAccount" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+        <Link
+          to="/Account"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+        >
           Go Back
         </Link>
-        <Link to="/addGodown" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-4">
-          Add New Godown
-        </Link>
+        {userRole === 'ADMIN' && (
+          <Link
+            to="/addGodown"
+            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 ml-4"
+          >
+            Add New Godown
+          </Link>
+        )}
       </div>
     </div>
   );

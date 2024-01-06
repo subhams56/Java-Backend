@@ -31,20 +31,21 @@ const SignIn = () => {
 
         console.log('API Response:', result);
         alert(`Welcome Back ${result.username} !`);
+        navigate('/Account');
 
-        if (result.role === 'ADMIN') {
-          navigate('/adminAccount');
-        } else {
-          navigate('/userAccount');
-        }
-      } else {
-        console.error('API Request failed:', response.status, response.statusText);
+      //   if (result.role === 'ADMIN') {
+      //     navigate('/Account');
+      //   } else {
+      //     navigate('/Account');
+      //   }
+      // } else {
+      //   console.error('API Request failed:', response.status, response.statusText);
 
         if (response.data) {
           console.error('Response body:', response.data);
         }
 
-        alert('Something Went Wrong (Role)');
+        
       }
     } catch (error) {
       console.error('Error during fetch:', error.message);

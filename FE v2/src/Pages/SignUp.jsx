@@ -7,7 +7,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  // const [role, setRole] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
@@ -62,7 +62,7 @@ const SignUp = () => {
     const userData = {
       username,
       pwd: password,
-      role,
+      // role,
       mobileNumber,
       gender,
       email,
@@ -121,7 +121,7 @@ const SignUp = () => {
               {passwordError && <p className="text-black text-md italic">{passwordError}</p>}
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label htmlFor="role" className="block text-sm font-bold mb-2 mt-[40px]">
                 Role:
                 <select
@@ -138,7 +138,7 @@ const SignUp = () => {
                   <option value="GUEST">GUEST</option>
                 </select>
               </label>
-            </div>
+            </div> */}
 
             <div className="mb-4">
               <label htmlFor="mobileNumber" className="block text-sm font-bold mb-2 mt-[40px]">
