@@ -23,7 +23,7 @@ const AddInward = () => {
       quantity: Number(quantity),
       receivedBy,
       godowns: {
-        id: Number(godownId),
+        godownId: Number(godownId),
         users: {
           username: receivedBy,
         },

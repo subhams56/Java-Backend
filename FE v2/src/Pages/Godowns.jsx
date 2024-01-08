@@ -3,6 +3,7 @@ import apiService from '../layers/Service';
 import { Navbar2 } from '../Components/Navbar2';
 import { Link, useNavigate } from 'react-router-dom';
 
+
 const Godowns = () => {
   const [godowns, setGodowns] = useState([]);
   const navigate = useNavigate();
@@ -22,20 +23,15 @@ const Godowns = () => {
     fetchData();
   }, []);
 
-  const handleDeleteGodown = async (godownId) => {
-    try {
-      await apiService.deleteGodownById(godownId);
-      const response = await apiService.getGodowns();
-      alert('Godown Deleted Successfully');
-      setGodowns(response.data);
-    } catch (error) {
-      console.error('Error deleting godown:', error.message);
-      alert(`This Godown is not Empty! Check Inwards`);
-    }
-  };
-
-  const handleUpdateGodown = (id) => {
-    navigate(`/updateGodown/${id}`);
+  const handleToggleStatus = (godownId) => {
+    // Add logic to toggle godown status (UI only, no API logic for now)
+    setGodowns((prevGodowns) =>
+      prevGodowns.map((godown) =>
+        godown.godownId === godownId
+          ? { ...godown, status: godown.status === 'Active' ? 'Inactive' : 'Active' }
+          : godown
+      )
+    );
   };
 
   return (
@@ -53,6 +49,7 @@ const Godowns = () => {
             {userRole === 'ADMIN' && (
               <th className="border border-gray-800 p-2">Actions</th>
             )}
+            <th className="border border-gray-800 p-2">Godown Status</th>
           </tr>
         </thead>
         <tbody>
@@ -73,6 +70,14 @@ const Godowns = () => {
                   </button>
                 </td>
               )}
+              <td className="border border-gray-800 p-2">
+                <button
+                  className={`${godown.status === 'Active' ? 'active' : ''}`}
+                  onClick={() => handleToggleStatus(godown.godownId)}
+                >
+                  {godown.status === 'Active' ? 'Active' : 'Inactive'}
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

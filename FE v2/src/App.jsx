@@ -24,6 +24,7 @@ import AddProduct from './Pages/AddProduct'
 import UpdateProduct from './Pages/UpdateProduct'
 import Returns from './Pages/Returns'
 import AddReturns from './Pages/AddRetuns'
+import AddOutward from './Pages/AddOutward'
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
         <Route path="/updateProduct/:id" element={<UpdateProduct/>}/>
         <Route path="/returns" element={<Returns/>}/>
         <Route path="/addReturn" element={<AddReturns/>}/>
+        <Route path="/addOutward" element={<AddOutward/>}/>
         
         </Routes>
       </div>
